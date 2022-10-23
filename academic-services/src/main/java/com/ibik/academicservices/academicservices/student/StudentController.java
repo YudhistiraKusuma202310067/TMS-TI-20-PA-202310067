@@ -90,23 +90,23 @@ public class StudentController {
     public ResponseEntity<ResponseData<Student>> updateStudent(@Valid @RequestBody Student students, Errors errors) {
 
         ResponseData<Student> responseData = new ResponseData<>();
-        if (errors.hasErrors()) {
-            for (ObjectError error : errors.getAllErrors()) {
-                responseData.getMessage().add(error.getDefaultMessage());
-            }
-            responseData.setResult(false);
-            responseData.setData(null);
+        if(students.getId() != 0){
+            if (errors.hasErrors()) {
+                for (ObjectError error : errors.getAllErrors()) {
+                    responseData.getMessage().add(error.getDefaultMessage());
+                }
+                responseData.setResult(false);
+                responseData.setData(null);
 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
-        }
-        try {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
+            }
             responseData.setResult(true);
             List<Student> value = new ArrayList<>();
-            value.add(studentServices.update(students));
+            value.add(studentServices.save(students));
             responseData.setData(value);
 
             return ResponseEntity.ok(responseData);
-        } catch (Exception ex) {
+        } else {
             responseData.getMessage().add("ID is Required");
             responseData.setResult(false);
 
