@@ -29,7 +29,7 @@ public class CoursesController {
     private CoursesServices coursesServices;
 
     @PostMapping
-    public ResponseEntity<ResponseData<Courses>> postStudent(@Valid @RequestBody Courses courses, Errors errors) {
+    public ResponseEntity<ResponseData<Courses>> postCourses(@Valid @RequestBody Courses courses, Errors errors) {
         
         ResponseData<Courses> responseData = new ResponseData<>();
         
@@ -52,7 +52,7 @@ public class CoursesController {
     }
 
     @GetMapping
-    public ResponseEntity<ResponseData<Courses>> fetchStudents() {
+    public ResponseEntity<ResponseData<Courses>> fetchCourses() {
         ResponseData<Courses> responseData = new ResponseData<>();
         try {
             responseData.setResult(true);
@@ -69,7 +69,7 @@ public class CoursesController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseData<Courses>> fetchStudentsById(@PathVariable("id") int id) {
+    public ResponseEntity<ResponseData<Courses>> fetchCoursesById(@PathVariable("id") int id) {
         ResponseData<Courses> responseData = new ResponseData<>();
         try {
             responseData.setResult(true);
@@ -87,7 +87,7 @@ public class CoursesController {
     }
 
     @PutMapping
-    public ResponseEntity<ResponseData<Courses>> updateStudent(@Valid @RequestBody Courses courses, Errors errors) {
+    public ResponseEntity<ResponseData<Courses>> updateCourses(@Valid @RequestBody Courses courses, Errors errors) {
 
         ResponseData<Courses> responseData = new ResponseData<>();
         if(courses.getId() != 0){
@@ -115,7 +115,7 @@ public class CoursesController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseData<Void>> deleteStudentsById(@PathVariable("id") int id) {
+    public ResponseEntity<ResponseData<Void>> deletesCoursesById(@PathVariable("id") int id) {
         ResponseData<Void> responseData = new ResponseData<>();
         try {
             coursesServices.removeOne(id);

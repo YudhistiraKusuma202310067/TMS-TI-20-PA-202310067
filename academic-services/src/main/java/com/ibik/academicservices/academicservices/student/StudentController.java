@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ibik.academicservices.academicservices.dto.ResponseData;
+import com.ibik.academicservices.academicservices.dto.SearchData;
 
 @RestController
 @RequestMapping("/api/student")
@@ -127,6 +128,23 @@ public class StudentController {
             responseData.setResult(false);
             responseData.getMessage().add(ex.getMessage());
 
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
+        }
+    }
+
+    @PostMapping("/search")
+    public ResponseEntity<ResponseData<Student>> getStudentByName(@RequestBody SearchData searchData) {
+        ResponseData<Student> responseData = new ResponseData<>();
+        try {
+            Iterable<Student> values = studentServices.findByName(searchData.getSearchKey());
+            responseData.setResult(true);
+            responseData.getMessage();
+            responseData.setData(values);
+            return ResponseEntity.ok(responseData);
+        } catch (Exception ex) {
+            responseData.getMessage().add(ex.getMessage());
+            responseData.setData(null);
+            responseData.setResult(false);
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseData);
         }
     }
