@@ -46,6 +46,14 @@ public class Student implements Serializable{
     @NotEmpty(message = "Lastname is required")
     private String lastname;
 
+    @Column(length = 50)
+    @NotEmpty(message = "Email is required")
+    private String email;
+
+    @Column(columnDefinition = "DATE")
+    @NotEmpty(message = "Birthdate is required")
+    private String birthdate;
+
     // @Column(length = 11)
     // @Min(value = 1, message = "Program is required")
     // private int program_id;
@@ -73,13 +81,15 @@ public class Student implements Serializable{
     public Student() {
     }
 
-    public Student(int id, String npm, String firstname, String middlename, String lastname, int program_id,
-            int department_id) {
+    public Student(int id, String npm, String firstname, String middlename, String lastname, @NotEmpty(message = "Email is required") String email,
+    @NotEmpty(message = "Birthdate is required") String birthdate, int program_id,int department_id) {
         this.id = id;
         this.npm = npm;
         this.firstname = firstname;
         this.middlename = middlename;
         this.lastname = lastname;
+        this.email = email;
+        this.birthdate = birthdate;
         this.programs = programs;
         this.programStudy = programStudy;
     }
@@ -143,6 +153,22 @@ public class Student implements Serializable{
     // public void setDepartment_id(int department_id) {
     //     this.department_id = department_id;
     // }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
 
     public Set<Courses> getCourses() {
         return courses;
